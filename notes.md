@@ -12,7 +12,7 @@
 
 * check if a cycle in complex is locally minimal
 * when a locally minimal cycle gets reduced, a 2d feature is born
-* provide proof
+* provide proofs
 
 ### higher dimension
 
@@ -24,7 +24,15 @@
   changes -- loops with two edges. (6r?)
 * Complex beyond 2d?
 
+## Manifolds.jl
+
+rework and fix
+
 ## Datasets
 
 * Find large 3d models
 * Wood images
+
+## Misc
+
+archive old packages

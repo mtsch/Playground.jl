@@ -1,0 +1,488 @@
+hash
+@doc hash
+hash(1)
+hash(2)
+hash(2) :: Int32
+convert(Int32, hash(2))
+using SimplexTrees
+SAL()
+SAL()
+using SimplexTrees
+SAL()
+SAL()
+using SimplexTrees
+SAL()
+SAL([])
+SAL(Vector{SALNode}[])
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+hash([1,2,3])
+hash([1,2,3])
+hash([1,2,3])
+hash([1,2,3,4])
+hash([1,2,3])
+issorted
+issorted((1,2,3))
+issorted((1,3,2))
+sort((1,3,2))
+Tuple <: AbstractArray
+eltype((1,2,3))
+eltype((1,2,3,"a"))
+eltype((1,2,3))
+eltype((1,2,3)) <: Int32
+eltype((1,2,3))
+map(x -> convert(Int32, x), x)
+map(x -> convert(Int32, x), (1,2,3))
+map(x -> convert(Int32, x), (1,2,300000000000))
+eltype((1,2,3)) <: Integer
+!eltype((1,2,3)) <: Integer
+!(eltype((1,2,3)) <: Integer)
+methodswith(IntSet)
+@doc symdiff
+methodswith(IntSet)
+last(IntSet(1,2,3))
+last(IntSet([1,2,3]))
+last(IntSet([1,2,3,10]))
+a = 3
+b = a +=1
+b
+a
+sx = (1,3,4,5)
+for i in 1:length(sx)
+for j in i:length(sx)
+print("($i, $j)")
+end
+end
+1+1:3
+simplex = sx
+
+    for (i, li) in enumerate(simplex), (j, lj) in enumerate(simplex[i+1:end])
+        println("($li, $lj)")
+    end
+iszero
+Set
+Set(Int)
+Set([])
+Set{Int}([])
+Set(Int[])
+TreeSet
+insert!
+methods(insert!)
+SortedSet
+DataStructures.SortedSet
+@doc DataStructures.SortedSet
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+"$(\"a\")"
+"$("a")"
+"$("a")"
+"$("a")"
+str
+string
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+a = Set([1,2,3])
+vec(a)
+a
+round(1, 10)
+lpad
+lpad(1, 3)
+lpad(10, 3)
+lpad(10, 3)
+Pkg.test("SimplexTrees")
+array
+convert(Array, Set([1,2,3]))
+convert(Array, Set([1,2,3]))
+collect(Set([1,2,3]))
+Pkg.test("SimplexTrees")
+print(Int[1,2,3])
+print([Set([1,2,3])])
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+"a
+b"
+"""a
+b
+""
+"""
+member
+Base.insert
+@doc Base.insert
+@doc insert
+@doc insert!
+Base.insert!
+isnull
+isnull(Nullable())
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+ismember
+in
+in(1, [1,2,3])
+issubest
+issubset
+contains
+@doc contains
+contains(t,_ -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]), 0)
+contains((t,_) -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]), 0)
+contains((t,_) -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]))
+contains(t -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]))
+find(t -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]))
+findfirst(t -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]))
+find(t -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]))
+(length ∘ find)(t -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)]))
+(length ∘ find)(t -> t[1] == 1 && t[2] == 2, Set([(4,3,2), (1,2,3)])) != 0
+SortedSet
+using DataStructures
+SortedSet
+@doc <
+@doc order
+odering
+order
+compare
+@doc compare
+compare(1,2)
+isequal
+
+struct SALNode{L, T}
+    node_lbl::L
+    next_lbl::L
+    mxsx_lbl::L
+
+    data::Nullable{T}
+end
+SALNode(1,2,3,4)
+SALNode(1,2,3,Nullable(4))
+a = SALNode(1,2,3,Nullable(4))
+b = SALNode(2,2,3,Nullable(4))
+a > b
+a < b
+getfield
+Nullable(4) < Nullable(5)
+Nullable(4) < Nullable()
+Nullable() < Nullable()
+a < b
+a > b
+a
+b
+c = SALNode(1,2,4,Nullable{Int64}(4))
+sort([a,b,c])
+SortedSet([1,2,3])
+collect(SortedSet([1,2,3]))
+SortedSet([1,2,3])
+find(2, SortedSet([1,2,3]))
+find(x -> x == 2, SortedSet([1,2,3]))
+map(x -> x+1)
+map(x -> x+1) do
+a  =SortedSet([1,2,3])
+a  =SortedSet([1,2,3,4,5,6,7,8,9])
+find(x -> 2 >= x >= 5)
+find(x -> 2 >= x >= 5, a)
+find(x -> 2 >= x >= 5, a)
+a
+find(x -> 2 <= x <= 5, a)
+map(x -> x+1, find(x -> 2 <= x <= 5, a))
+map(x -> x+1, find(x -> 2 <= x <= 5, a))
+Set(map(x -> x+1, find(x -> 2 <= x <= 5, a)))
+@doc intersect!
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+search
+search(x -> x == 10, [1,10])
+@doc search
+find
+@doc find
+mapfoldl
+Pkg.test("SimplexTrees")
+intersect
+intersect
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+a = SortedMultiDict{Int, Int}()
+a[1] = 1
+insert!(a, 1, 1)
+a[1]
+a[1]
+a
+a[1]
+a[1,1]
+a[1=>1]
+find(a,1)
+@delegate
+Associative
+@doc Associative
+Base.insert!
+intersect!
+@doc intersect!
+methods(intersect!)
+@doc IntSet
+IntSet
+IntSet{Int}
+@doc intersect
+methods(intersect)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+delete!
+@doc delete!
+@doc deleteat!
+d = Dict(1=>2)
+delete!(d, 2)
+remove
+remove!
+methods(delete!)
+a = Set([1,2,3])
+delete!(a, 5)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+<=
+=>
+<=>
+<==>
+=>
+@doc =>
+@doc Pair
+dump(1 => 2)
+a = Dict()
+a[3] = 4
+Pkg.test("SimplexTrees")
+s = Set([1,2,3])
+delete!(s, [2,3])
+delete!(s, 2,3)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+start(Dict(1))
+start(Dict(1=>2))
+next(16)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+SimplexTrees
+SimplexTrees.SAL
+methods(SimplexTrees.SAL)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Base.Test.@test_not
+not
+negate
+neg
+using SimplexTrees
+SAL()
+a = SAL()
+using SimplexTrees
+sal = SAL()
+print(sal)
+push!(sal, collect(1:30))
+sal
+push!(sal, collect(1:30))
+print(sal)
+push!(sal, collect(1:30))
+sal
+print(sal)
+(1:30) in sal
+(1:30) in sal
+(2:30) in sal
+(2:30) in sal
+push!(sal, 1:100)
+(1:100) in sal
+push!(sal, 1:1000)
+(1:1000) in sal
+(1:1000) in sal
+(1:1001) in sal
+(1:1000) in sal
+print(sal)
+sal = SAL()
+gc()
+search
+@doc search
+@doc find
+@doc locate
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+print(1:100)
+print(collect(1:100))
+A = zeros(300,300)
+print(A)
+show(A)
+A
+complement
+first(IntSet([3]))
+first(IntSet([3,1,2]))
+delete!(IntSet([3,2,1]), 3)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+IntSet
+IntSet()
+Pkg.test("SimplexTrees")
+Vector
+IntSe
+IntSet
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+tuple([1,2,3])
+tuple([1,2,3]...)
+([1,2,3]...)
+IntDict
+IntMap
+Pkg.test("SimplexTrees")
+last(IntSet([1,2,6]))
+Pkg.test("SimplexTrees")
+IntSet <: AbstractSet
+Pkg.test("SimplexTrees")
+(1,2,3) <: AbstractSet
+(1,2,3) :: AbstractSet
+isa(AbstractSet, (1,2,3))
+isa((1,2,3), AbstractSet)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+keys
+values
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+unions
+union
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+
+function isface(σ1, σ2)
+    i = 1; j = 1
+    while i <= length(σ1) && j <= length(σ2)
+        if σ1[i] == σ2[j]
+            i += 1; j += 1
+        elseif σ1[i] > σ2[j]
+            j += 1
+        else
+            return false
+        end
+    end
+    i == length(σ1)
+end
+isface((1,2,3), (1,2,3))
+isface((1,2,3), (1,2,3))
+length((1,2,3))
+isface((1,2,3), (1,2,3))
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+@time SimplexTrees
+import SimplexTrees
+sal = SimplexTrees.SAL()
+push!(sal, 1:100)
+sal
+1:100 in sal
+@time 1:100 in sal
+@time 1:100 in sal
+@time 1:100 in sal
+@time 1:100 in sal
+@doc intersect!
+SimplexTrees.maximalsimplices
+SimplexTrees.maximalsimplices(sal)
+a = first(SimplexTrees.maximalsimplices(sal))
+SimplexTrees.maximalsimplices(sal)
+@time SimplexTrees.maximalsimplices(sal)
+mx = SimplexTrees.maximalsimplices(sal)
+dump(mx)
+@time collect(mx)
+parent
+typeof(mx)
+parent(typeof(mx))
+parent
+@doc parent
+@doc supertype
+supertype(type(mx))
+supertype type(mx)
+supertype(type(mx))
+supertype(typeof(mx))
+methodswith(mx)
+methodswith(mx)
+methodswith(typeof(mx))
+setdiff
+methods(setdiff)
+isempty(sal)
+Pkg.test("SimplexTrees")
+deleteall
+deleteall!
+setdiff!
+@doc setdiff!
+methods(setdiff!)
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+IntSet(1)
+Void()
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+sal.lbl_vals
+sal.lbl_vals
+Pkg.test("SimplexTrees")
+Pkg.test("SimplexTrees")
+eltype(1)
+sal = SimplexTrees.SAL()
+insert!(sal, 1:10000)
+push!(sal, 1:10000)

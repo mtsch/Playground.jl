@@ -1,0 +1,502 @@
+Plots.Spy
+@edit plot(Plots.Spy, eye(3))
+plot(r)
+minimum.([[1,2],[2,1],[0,1]])
+(minimum ∘ minimum).([[1,2],[2,1],[0,1]])
+minimum.([[1,2],[2,1],[0,1]]) |> minimum
+minimum.([[1,2],[2,1],[0,1]]) |> minimum
+minimum.([[1,2],[2,1],[0,1]]) |> minimum
+minimum.(([1,2],[2,1],[0,1])) |> minimum
+plot(r)
+HashTable
+ptsnd = rand(Circle()×Circle()×Circle()×Circle(), 2000)
+persistence2(ptsnd)
+persistence2(ptsnd, show_trace = true)
+gc()
+gc()
+rnn = persistence2(ptsnd, show_trace = true, use_hash = false)
+ptsnd = rand(Circle()×Circle()×Circle(), 2000)
+rnn = persistence2(ptsnd, show_trace = true, use_hash = false)
+rnn = persistence2(ptsnd, show_trace = true, use_hash = false)
+@time rnn = persistence2(ptsnd, show_trace = true, use_hash = false)
+@time rnn = persistence2(ptsnd, show_trace = true, use_hash = false)
+@time rnn = persistence2(ptsnd, show_trace = true, use_hash = false)
+@time rnn = persistence2(ptsnd, show_trace = false, use_hash = false)
+(196-136)
+60/196
+@time rnn = persistence2(ptsnd, show_trace = false, use_hash = false)
+pts
+@time rnn = persistence2(pts, show_trace = false, use_hash = false)
+@benchmark rnn = persistence2(pts, show_trace = false, use_hash = false)
+@benchmark rnn = persistence2(pts, show_trace = false, use_hash = false)
+@benchmark rnn = persistence2(pts, show_trace = false, use_hash = true)
+194.837 /373.471 
+rnn
+plot(rnn)
+plotly(size = (900,900))
+plot(rnn)
+@doc @inbounds
+@doc r
+@doc round
+dstmx
+distmx
+ordertoedge
+ordertoedge(rand(1000,1000))
+@time ordertoedge(rand(1000,1000))
+@time ordertoedge(rand(10000,10000))
+g = Graph(1000,1000000)
+g = Graph(10000,1000000)
+@time dijkstra_shortest_paths(g, 1)
+@time dijkstra_shortest_paths(g, 1)
+@time dijkstra_shortest_paths(g, 1)
+@time dijkstra_shortest_paths(g, 1)
+@benchmark dijkstra_shortest_paths(g, 1)
+@benchmark dijkstra_shortest_paths(g, 1)
+density(g)
+@time parallel_multisource_dijkstra_shortest_paths(g)
+using Manifolds()
+asymt = Circle() * Circle(x -> 0.2(x[1]- 0.5)^2 + 0.2)
+using Plots; plotly(size=(900,900))
+asymt = Circle() * Circle(x -> 0.2(0.5x[1]- 0.5)^2 + 0.2)
+plot(asymt)
+asymt = Circle() * Circle(x -> 0.3(x[1]- 0.5)^2 + 0.2)
+plot(asymt)
+pts = rand(asymt, 1000)
+r = persistence2(pts)
+plot(r)
+plot(r, true)
+pyplot()
+plot(r, true)
+r = persistence2(pts)
+ENV["JULIA_NUM_THREADS"]
+ENV
+pts
+using Manifolds
+pts = rand(Circle(2)*Circle(), 1000)
+M = pairwise(Euclidean(), pts)
+@benchmark counttri(M)
+interle
+iterlen
+iterlength
+tris = triangles(M)
+tris = triangles(M, 0.2)
+tris = triangles(M)
+tris = equilaterals(M)
+@benchmark interlength(tris)
+@benchmark iterlength(tris)
+iterlength(tris)
+binomial(1000,3)
+
+5882942 / 166167000
+
+5882942 / binomial(1000,2)
+
+5882942 / 1000^2
+pts = rand(Circle()×Circle()×Circle(), 1000)
+iterlength(pts)
+tris = equilaterals(pairwise(Euclidean(), pts))
+iterlength(tris)
+
+60509953
+
+5882942 / 60509953
+
+60509953 / binomial(1000,3)
+@benchmark iterlength(tris)
+M
+@benchmark ordertoedge(M)
+@benchmark ordertoedge(M)
+MVector(1:10)
+MVector(1:10)
+@MVector(1:10)
+@MVector 1:10
+MVector{10}(1:10)
+@benchmark iterlength(tris)
+
+  minimum time:     7.058 s (0.00% GC)
+  median time:      7.058 s (0.00% GC)
+  mean time:        7.058 s (0.00% GC)
+  maximum time:     7.058 s (0.00% GC)
+@benchmark iterlength(tris)
+@benchmark iterlength(tris)
+@benchmark iterlength(tris)
+@benchmark iterlength(tris)
+@benchmark iterlength(tris)
+@benchmark iterlength(tris)
+isbits(Triangle)
+isbits(Triangle{Float64})
+M = rand(1000,1000)
+equilaterals(M)
+equilaterals(M, tol = 0.1)
+@benchmark iterlength(equilaterals(M, tol = 0.1))
+@benchmark iterlength(equilaterals(ones(1000,1000), tol = 0.1))
+@benchmark iterlength(equilaterals($(ones(1000,1000)), tol = 0.1))
+iterlength(equilaterals($(ones(1000,1000)), tol = 0.1))
+iterlength(equilaterals((ones(1000,1000)), tol = 0.1))
+iterlength(equilaterals((ones(1000,1000)), tol = 0.2))
+fkmt = ones(1000,1000)
+for i in 1:1000 fkmt[i,i]=0 end
+fkmt
+iterlength(equilaterals((ones(1000,1000)), tol = 0.2))
+iterlength(equilaterals((ones(1000,1000)), tol = 0.2))
+iterlength(equilaterals((ones(1000,1000)), tol = 0.2))
+first(equilaterals((ones(1000,1000)), tol = 0.2))
+iterlength(equilaterals((ones(1000,1000)), tol = 0.2))
+
+498501000
+binomial(1000,3)
+binomial(1000,3)*3
+iterlength(equilaterals((ones(1000,1000)), tol = 0))
+Pkg.test("IntrinsicPersistence")
+@doc @inferred
+using Base.Test
+@doc @inferred
+a = @inferred(1+1)
+a
+@isinferred
+@doc start
+done(st)
+done(st, eqs)
+done(eqs, st)
+Float8
+Float16
+rand(Int)
+import IntrinsicPersistence: equilaterals
+equilaterals
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+edges
+@doc edges
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+0.07972440180819175 * 2
+
+    2*0.07972440180819175 == 0.19963117359531515
+
+    2*0.07972440180819175 #== 0.19963117359531515
+
+    2*0.07972440180819175
+end
+
+    2*0.07972440180819175
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+issorted(1:10)
+ord
+M
+ordertoedge(M)
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+T= Float16
+n = 100
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+@doc pairwise
+evaluate(Euclidean(), 1, 2)
+typeof(evaluate(Euclidean(), 1, 2))
+typeof(evaluate(Cityblock(), 1, 2))
+typeof(evaluate(Cityblock(), 1, 2.))
+typeof(evaluate(Cityblock(), 1., 2.))
+typeof(evaluate(Cityblock(), 1., 2. + im))
+typeof(evaluate(Cityblock(), 1. + im, 2. + im))
+typeof(evaluate(Cityblock(), 1. + im, 2. + 2im))
+(evaluate(Cityblock(), 1. + im, 2. + 2im))
+(evaluate(Cityblock(), 1. + im, 2.))
+(evaluate(Cityblock(), 1., 2.))
+Pkg.test("IntrinsicPersistence")
+T = Int
+equilaterals(M)
+st = start(equilaterals(M))
+done(st)
+eqs = equilaterals(M)
+rand(1:10, 2, 3)
+typemax(Int)
+typemax(Int32)
+typemax(Int32) ÷ 8
+typemax(Int16) ÷ 8
+typemax(Int8) ÷ 8
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+typeof(Cityblock(), Int8(1), Int8(1))
+typeof(evaluate(Cityblock(), Int8(1), Int8(1)))
+typeof(evaluate(Cityblock(), Int8(1), Int8(10)))
+pts = rand(Int8, 3, 100)
+M
+equilaterals(M)
+eltype(equilaterals(M))
+Pkg.test("IntrinsicPersistence")
+T = Int32
+Δs
+M
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+T = Int16
+n = 100
+Pkg.test("IntrinsicPersistence")
+eltype(Δs)
+typeof(st)
+eltype(Δs) == Triangle{T}
+
+eltype(Δs)
+Pkg.test("IntrinsicPersistence")
+typeof(Δs)
+equilaterals(@SMatrix(rand(3,3)))
+using StaticArrays
+equilaterals(@SMatrix(rand(3,3)))
+@doc warn
+Int(NaN)
+@edit warn("haha", once = true)
+warn("haha", once = true)
+warn("haha", once = true)
+warn("haha", once = true)
+warn("haha", once = false)
+warn("haha", once = false)
+warn("haha", once = false)
+Graph(100,10000)
+using LightGraphs
+Graph(100,10000)
+uppertri
+utri
+triu
+triu(rand)3,3()
+triu(rand(3,3))
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+sprand(3,3,1)
+sprand(3,3,.1)
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+spones
+spones(10,10,0.1)
+spones(3)
+@doc spones
+nnz
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+nnz(sprand(10,10,0.1))
+nnz(sprand(10,10,0.1))
+nnz(sprand(10,10,0.1))
+nnz(sprand(10,10,0.1))
+nnz(sprand(10,10,0.1))
+nnz(sprand(10,10,0.1))
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+A = sparse([1], [1], [1])
+A[1,1] = 0
+A
+Pkg.test("IntrinsicPersistence")
+spzeros(10,10)
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+[rand(SVector{3, Float64}) for _ in 1:10]
+subtypes(Metric)
+subtypes(Metric)[1]()
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+subtypes(Metric)
+for m in subtypes(Metric)[1:end-1] m(1) end
+for m in subtypes(Metric)[1:end-1] m(.1) end
+for m in subtypes(Metric)[1:end-1] m() end
+subtypes(Metric)
+for m in subtypes(Metric)[8:end-1] m() end
+for m in subtypes(Metric)[10:end-1] m() end
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+spzeros(3,3) == zeros(3,3)
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+pairwise(Chebyshev(), rand(3,10))
+pairwise(Chebyshev(), rand(3,10))
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+subtypes(PreMetric)
+subtypes(SemiMetric)
+subtypes(Metric)
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+show(STDOUT, MIME"text/plain", rand(10,10))
+MIME"text/plain"
+show(STDOUT, MIME"text/plain", rand(10,10))
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+
+M = [0.0 12.7593 13.0443 13.1977 12.4377; 12.7593 0.0 12.5053 13.0374 12.755; 13.0443 12.5053 0.0 13.0291 13.5493; 13.1977 13.0374 13.0291 0.0 13.0736; 12.4377 12.755 13.5493 13.0736 0.0]
+M
+M == M'
+sampledensity(M)
+using IntrinsicPersistence
+using IntrinsicPersistence.sampledensity
+using IntrinsicPersistence
+sampledensity(M)
+n = 5
+
+            M2  = copy(M)
+            for i in 1:n
+                M2[i, i] = Inf
+            end
+M2
+M
+M2
+M
+maximum(minimum(M2, 1))
+sampledensity(M)
+Pkg.test("IntrinsicPersistence")
+
+M = [0.0 13.407 13.2195 12.6936 12.9384; 13.407 0.0 12.7495 12.3816 12.8405; 13.2195 12.7495 0.0 13.0529 12.4153; 12.6936 12.3816 13.0529 0.0 12.6811; 12.9384 12.8405 12.4153 12.6811 0.0]
+M ?? M'
+M == M'
+M
+sampledensity(M)
+sampledensity(M2)
+maximum(minimum(M2, 1))
+M2
+minimum(M2, 1)
+sampledensity(M2)
+Pkg.test("IntrinsicPersistence")
+1 ÷ 2
+2÷2
+3÷2
+÷=
+1 ÷= 2
+a = 1
+a ⊻= 1
+a
+a
+a[end]
+a[min(end,100)]
+sum(1 for i in equilaterals(M))
+@btime sum(1 for i in equilaterals(M))
+@btime sum(x->1, equilaterals(M))
+@btime sum(_->1, equilaterals(M))
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+esc
+@doc esc
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+spannergraph
+using IntrinsicPersistence: spannergraph
+spannergraph
+pts = rand(3, 100); spannergraph(pts)
+@code_warntype spannergraph(pts)
+eltype(Euclidean())
+pts = rand(3, 100); spannergraph(pts)
+@code_warntype spannergraph(pts)
+@code_warntype spannergraph(pts)
+using IntrinsicPersistence: spannergraph
+@code_warntype spannergraph(pts)
+@code_warntype IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+Revise
+Revise.
+end
+Ripser
+Revise
+using IntrinsicPersistence
+@code_warntype IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+using IntrinsicPersistence
+IntrinsicPersistence.spannergraph(pts)
+revise(IntrinsicPersistence)
+IntrinsicPersistence.spannergraph(pts)
+revise(IntrinsicPersistence)
+IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+spannergraph(pts)
+spannergraph(pts)
+spannergraph(pts)
+IntrinsicPersistence.spannergraph(pts)
+using LightGraphs, SimpleWeightedGraphs, StaticArrays
+ppannergraph(pts)
+pts = rand(3,100)
+spannergraph(pts)
+spannergraph(pts)
+using Distances
+spannergraph(pts)
+using NearestNeighbors
+spannergraph(pts)
+@code_warntype spannergraph(pts)
+@code_warntype spannergraph(pts)
+@code_warntype spannergraph(pts)
+@code_warntype spannergraph(pts)
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+Pkg.test("IntrinsicPersistence")
+using IntrinsicPersistence
+r = persistence(torus, show_trace = true)
+r = persistence(torus.graph, show_trace = true)
+r = persistence(torus.graph, show_trace = true)
+r = persistence(lm.graph, show_trace = true)
+using Manifolds
+pts = rand(Circle(2)*Circle(), 1000)
+r = persistence(pts, show_trace = true)
+using IntrinsicPersistence
+r = persistence(pts, show_trace = true)
+using IntrinsicPersistence
+persistence(torus.graph, show_trace = true)
+r = persistence(torus.graph, show_trace = true)
+r
+r.generators[2]
+r.generators[2].column
+r = persistence(lm.graph, show_trace = true)
+r.generators[end].column
+r.generators[end].path
+
+    order     = edgetoorder(lm.graph)
+
+    order     = IntrinsicPersistence.edgetoorder(lm.graph)
+order[r.generators[end].path]
+pth = r.generators[end].path
+ptth = zip(ptth, circhshift(ptth, 1))
+ptth = collect(zip(pth, circhshift(pth, 1)))
+ptth = collect(zip(pth, circshift(pth, 1)))
+[order[p...] for p in ptth]
+pth = r.generators[end].path
+pth = r.generators[end].column
