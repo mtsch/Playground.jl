@@ -57,11 +57,7 @@ function Base.iterate(ei::EquilateralIterator, st = (1, 1))
             a > b || k > i || continue
             a > c || k > j || continue
 
-            #@show eindex
-            #@show i,j,k
-            #@show a,b,c
             if 0 ≤ a - b ≤ tol && 0 ≤ a - c ≤ tol && abs(b - c) ≤ tol
-                #println("yee")
                 return (i, j, k), (eindex, k + 1)
             end
         end
