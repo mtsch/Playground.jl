@@ -69,10 +69,10 @@ for f in [:edges, :eltype, :ne, :nv, :vertices, :is_directed, :weights]
 end
 LightGraphs.is_directed(::Type{GeodesicComplex}) = false
 LightGraphs.is_directed(::Type{GeodesicComplex{T,D,P,M,K}}) where {T,D,P,M,K} = false
-LightGraphs.has_edge(gc::GeodesicComplex, u, v) = has_edge(gc.graph, u, v)
-LightGraphs.has_vertex(gc::GeodesicComplex, v) = has_edge(gc.graph, v)
-LightGraphs.inneighbors(gc::GeodesicComplex, v) = inneighbors(gc.graph, v)
-LightGraphs.outneighbors(gc::GeodesicComplex, v) = outneighbors(gc.graph, v)
+LightGraphs.has_edge(gc::GeodesicComplex, u::Integer, v::Integer) = has_edge(gc.graph, u, v)
+LightGraphs.has_vertex(gc::GeodesicComplex, v::Integer) = has_edge(gc.graph, v)
+LightGraphs.inneighbors(gc::GeodesicComplex, v::Integer) = inneighbors(gc.graph, v)
+LightGraphs.outneighbors(gc::GeodesicComplex, v::Integer) = outneighbors(gc.graph, v)
 
 function Base.show(io::IO, gc::GeodesicComplex{T, D}) where {T, D}
     print(io, "GeodesicComplex{$T, $D} with $(n_points(gc)) points, " *

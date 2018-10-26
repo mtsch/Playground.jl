@@ -1,10 +1,9 @@
-using Playground.GeodesicComplexes
-
 using Distances
 using LightGraphs
 using SimpleWeightedGraphs
 using NearestNeighbors
 using StaticArrays
+using Plots
 
 using LinearAlgebra
 
@@ -65,12 +64,22 @@ const datasets = (two_lines, torus, sphere3, grid2)
         for (pts, metric, r) in datasets
             for gc in (GeodesicComplex(pts, r, metric = metric),
                        GeodesicComplex(pts, r, metric = metric, witness = false))
-                @test_broken "TODO"
+                # Run some functions to see that the interface is defined properly
+                @test betweenness_centrality(gc) isa Array
+                @test dijkstra_shortest_paths(gc, 1) isa LightGraphs.DijkstraState
             end
         end
     end
 
     @testset "Plotting" begin
-        @test_broken "TODO"
+        # Plot to see nothing errors
+        plotly()
+        for (pts, metric, r) in datasets
+            for gc in (GeodesicComplex(pts, r, metric = metric),
+                       GeodesicComplex(pts, r, metric = metric, witness = false))
+                @test plot(gc) isa Plots.Plot
+                @test plot(gc, only_landmarks = false) isa Plots.Plot
+            end
+        end
     end
 end
