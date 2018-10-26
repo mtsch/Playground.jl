@@ -1,10 +1,11 @@
 name = "Playground"
 uuid = "b6a30c88-d227-11e8-0cc4-75428b7551a0"
 authors = ["mtsch <matijacufar@gmail.com>"]
-version = "0.7"
+version = "1.0"
 
 [deps]
 Distances = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
+IterTools = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
 LightGraphs = "093fc24a-ae57-5d10-9952-331d41423f4d"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 NearestNeighbors = "b8a86587-4115-5ab1-83bc-aa920d37bbce"
