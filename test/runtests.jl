@@ -1,5 +1,4 @@
-module Playground
+using Playground
+using Test
 
 include("geodesiccomplex.jl")
-
-end
