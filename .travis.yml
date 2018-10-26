@@ -1,0 +1,18 @@
+language: julia
+os:
+  - linux
+  - osx
+
+julia:
+  - 0.7
+  - nightly
+
+notifications:
+  email: false
+
+script:
+  - julia -e 'using Pkg; Pkg.clone(pwd()); Pkg.test("Playground"; coverage = true)'
+
+after_success:
+  - julia -e 'using Pkg; cd(Pkg.dir("Playground")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
+  - julia -e 'using Pkg; cd(Pkg.dir("Playground")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
