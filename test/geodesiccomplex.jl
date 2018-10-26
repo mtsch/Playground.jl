@@ -4,6 +4,7 @@ using SimpleWeightedGraphs
 using NearestNeighbors
 using StaticArrays
 using Plots
+using RecipesBase
 
 using LinearAlgebra
 
@@ -72,13 +73,12 @@ const datasets = (two_lines, torus, sphere3, grid2)
     end
 
     @testset "Plotting" begin
-        # Plot to see nothing errors
-        plotly()
+        # Count number of series.
+        d = Dict{Symbol, Any}()
         for (pts, metric, r) in datasets
             for gc in (GeodesicComplex(pts, r, metric = metric),
                        GeodesicComplex(pts, r, metric = metric, witness = false))
-                @test plot(gc) isa Plots.Plot
-                @test plot(gc, only_landmarks = false) isa Plots.Plot
+                @test length(RecipesBase.apply_recipe(d, gc)) == 2
             end
         end
     end

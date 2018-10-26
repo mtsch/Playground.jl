@@ -14,14 +14,14 @@
 * when a locally minimal cycle gets reduced, a 2d feature is born
 * provide proofs
 
-### higher dimension
+### higher dimensional persistence
 
 * ???
 
 ## Geodesic complexes
 
 * Additional data set reduction -- connect all neighbors of removed points. The resolution
-  changes -- loops with two edges. (6r?)
+  changes -- loops with two edges. (resolution = 6r?)
 * Complex beyond 2d?
 
 ## Manifolds.jl
@@ -32,7 +32,3 @@ rework and fix
 
 * Find large 3d models
 * Wood images
-
-## Misc
-
-archive old packages
