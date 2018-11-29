@@ -1,6 +1,9 @@
 using LightGraphs
 using SimpleWeightedGraphs
 
+getradius(g::AbstractGraph) = maximum(weights(g))
+getradius(g::GeodesicComplex) = g.radius
+
 function getindexmatrix(dists)
     M = fill(0, size(dists))
     for (i, (u, v)) in enumerate(getsortededges(dists))
@@ -26,7 +29,7 @@ struct PersistenceState{T}
     cycle ::Vector{Int}
 end
 
-function PersistenceState(gc::GeodesicComplex)
+function PersistenceState(gc::AbstractGraph)
     floyd = floyd_warshall_shortest_paths(gc)
     dists = floyd.dists
     parents = floyd.parents
@@ -38,74 +41,67 @@ function PersistenceState(gc::GeodesicComplex)
     reduced = fill(BitSet(), binomial(nv(gc), 2))
     generators = Vector{Int}[]
 
-    PersistenceState(gc.radius, dists, parents, indexmatrix, reduced, generators, BitSet(), Int[])
+    PersistenceState(getradius(gc), dists, parents, indexmatrix, reduced, generators, BitSet(), Int[])
 end
+
+Base.show(io::IO, st::PersistenceState) = print(io, "PersistenceState")
+
+#sumcols!(σ1::BitSet, σ2::BitSet) = symdiff!(σ1, σ2)
+getlow(σ::BitSet) = length(σ) > 0 ? last(σ) : 0
 
 function reduce!(st::PersistenceState)
-end
-
-# TODO
-triangles(st::PersistenceState) = equilaterals(st.dists, st.radius)
-
-# TODO: abstractgraph
-function persistence(gc::GeodesicComplex; showprogress = false)
-    showprogress && println("Calculating intrinsic persistence...")
-
-    st = PersistenceState(gc)
-
-    for tri in triangles(st)
-        movecycle!(σ, cycle, parents, indexmatrix, tri)
-        allunique(cycle) || continue
-
-        showprogress && print(tri, " ↦ ", cycle)
-        low = reduce!(σ, reduced)
-        if low ≠ 0
-            reduced[low] = copy(σ)
-            if true || length(cycle) > 3
-                push!(generators, copy(cycle))
-            end
-            showprogress && println(" survived.")
-        else
-            showprogress && println(" is kill.")
-        end
-        # check if minimal
-    end
-    generators
-end
-
-function reduce!(col, reduced)
-    #println("Reduce $col")
-    low = getlow(col)
-    while low ≠ 0 && !isempty(reduced[low])
-        #println("   ", col, " + ", reduced[low])
-        col = sumcols!(col, reduced[low])
-        low = getlow(col)
-        #if length(col) == 3
-        #    return 0
-        #end
+    low = getlow(st.σ)
+    while low ≠ 0 && !isempty(st.reduced[low])
+        symdiff!(st.σ, st.reduced[low])
+        low = getlow(st.σ)
     end
     low
 end
 
-sumcols!(σ1::BitSet, σ2::BitSet) = setdiff!(σ1, σ2)
-getlow(σ::BitSet) = length(σ) > 0 ? last(σ) : 0
+# TODO
+eqtriangles(st::PersistenceState) = equilaterals(st.dists, 2st.radius)
 
 # TODO: get points and edges
 # TODO: islocallyminimal
-function movecycle!(σ, cycle, parents, indexmatrix, (i, j, k))
-    empty!(σ)
-    empty!(cycle)
+function movecycle!(st, (i, j, k))
+    empty!(st.σ)
+    empty!(st.cycle)
 
-    addpath!(σ, cycle, parents, indexmatrix, i, j)
-    addpath!(σ, cycle, parents, indexmatrix, j, k)
-    addpath!(σ, cycle, parents, indexmatrix, k, i)
+    addpath!(st, i, j)
+    addpath!(st, j, k)
+    addpath!(st, k, i)
 end
 
-function addpath!(σ, cycle, parents, indexmatrix, v, u)
+function addpath!(st, v, u)
     while v ≠ u
-        v′ = parents[u, v]
-        push!(σ, indexmatrix[v, v′])
-        push!(cycle, v)
+        v′ = st.parents[u, v]
+        push!(st.σ, st.indexmatrix[v, v′])
+        push!(st.cycle, v)
         v = v′
     end
+end
+
+# TODO: abstractgraph
+function persistence(gc::AbstractGraph; showprogress = false)
+    showprogress && println("Calculating intrinsic persistence...")
+
+    st = PersistenceState(gc)
+
+    for (i, tri) in enumerate(eqtriangles(st))
+        movecycle!(st, tri)
+        length(st.σ) == length(st.cycle) || continue
+
+        showprogress && print(tri, " ↦ ", st.cycle, ", ", collect(st.σ))
+        low = reduce!(st)
+        if low ≠ 0
+            st.reduced[low] = copy(st.σ)
+            if true || length(st.cycle) > 3
+                push!(st.generators, copy(st.cycle))
+            end
+            showprogress && println(" survived as ", collect(st.σ), ".")
+        else
+            showprogress && println(" is kill.")
+        end
+    end
+    st
 end
