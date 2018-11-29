@@ -97,7 +97,7 @@ function getxyz(pts::AbstractVector{SVector{D, T}}) where {D, T}
     end
 end
 
-@recipe function plot(gc::GeodesicComplex{T, D}; only_landmarks = true) where {T, D}
+@recipe function plot(gc::GeodesicComplex{T, D}, cycles = []; only_landmarks = true) where {T, D}
     landmarks = landmark_points(gc)
 
     # edges
@@ -132,6 +132,16 @@ end
             alpha --> 0.5
 
             getxyz(nonlandmark_points(gc))
+        end
+    end
+
+    # cycles
+    for (i, c) in enumerate(cycles)
+        @series begin
+            label := "cycle $i"
+            linewidth := 5
+            edgepoints = vcat(landmarks[c], [landmarks[c[1]]])
+            getxyz(edgepoints)
         end
     end
 end

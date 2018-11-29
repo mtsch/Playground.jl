@@ -1,5 +1,5 @@
 module EquilateralIterators
-export equilaterals
+export equilaterals, getsortededges
 
 """
 it iterates equilateral triangles!
@@ -27,7 +27,7 @@ equilaterals(dists::AbstractMatrix{T}, tol) where T =
 """
     getsortededges(dists)
 
-Get ordering on edges (values in matrix). Returns sorted edges and index matrix.
+Get ordering on edges (values in matrix).
 """
 getsortededges(dists) =
     sort!([(i, j) for i in 2:size(dists, 1) for j in 1:i-1],

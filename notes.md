@@ -22,6 +22,7 @@
 
 * Additional data set reduction -- connect all neighbors of removed points. The resolution
   changes -- loops with two edges. (resolution = 6r?)
+* subsetting -- split into connected components.
 * Complex beyond 2d?
 
 ## Manifolds.jl

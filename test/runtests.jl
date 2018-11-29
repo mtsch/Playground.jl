@@ -37,5 +37,5 @@ const grid2 = ([@SVector[i, j, k] for i in 1:10 for j in 1:10 for k in 1:10],
 
 const datasets = (two_lines, torus, sphere3, grid2)
 
-include("triangleiterator.jl")
+include("equilateraliterator.jl")
 include("geodesiccomplex.jl")
