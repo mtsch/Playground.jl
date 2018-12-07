@@ -69,7 +69,6 @@ function reduce!(st::PersistenceState)
     l
 end
 
-# TODO: islocallyminimal
 """
     movecycle!(st::PersistenceState, Δ)
 
@@ -98,7 +97,7 @@ function movepath!(st::PersistenceState, u, v)
 end
 
 function isgeodesic(st, Δ, cycle)
-    error()
+    true
 end
 
 function processtriangle!(st::PersistenceState, triangle, diameter, showprogress)
@@ -106,8 +105,8 @@ function processtriangle!(st::PersistenceState, triangle, diameter, showprogress
     # Skip cycles that visit a node more than once.
     length(st.σ) == length(st.cycle) || return
     # Geodesic check
+    isgeodesic(st, Δ, cycle) || return
 
-    # showprogress && print(triangle, " ↦ ", st.cycle, ", ", collect(st.σ))
     l = reduce!(st)
     if l ≠ 0
         st.reduced[l] = copy(st.σ)
@@ -115,9 +114,6 @@ function processtriangle!(st::PersistenceState, triangle, diameter, showprogress
             push!(st.generators, copy(st.cycle))
             push!(st.diameters, diameter)
         end
-        #showprogress && println(" survived as ", collect(st.σ), ".")
-    else
-        #showprogress && println(" is kill.")
     end
 end
 
@@ -125,118 +121,79 @@ function persistence(gc::AbstractGraph, showprogress = false)
     showprogress && println("Calculating intrinsic persistence...")
     st = PersistenceState(gc)
 
-    @time for (i, (Δ, diam)) in enumerate(st.triangles)
+    for (i, (Δ, diam)) in enumerate(st.triangles)
         processtriangle!(st, Δ, diam, showprogress)
     end
     #st
     #filter(x->x≢nothing, map(x->formatresults(gc,x), st.generators))
     showprogress && println("Postprocessing...")
     res = []
-    @time for g in st.generators
-        α, nit, m = contract(gc, g)
+    for g in st.generators
+        α, m = contract(gc, g)
         if α ≡ nothing
             #println("splat at $(m)!")
-            if m>2gc.radius
-                println("ujjjjjjjj, $m")
-            end
         else
-            push!(res, (g, centroid(gc, g)[1], α, nit, m))
+            push!(res, (g, α, m))
         end
     end
     res
-    #st
 end
 
-function contract(gc, cycle)
-    β = gc.landmarks[cycle]
-    α = Int[]
-    m = 0.0
-
-    nit = 0
-    while α ≠ β
-        resize!(α, length(β))
-        copyto!(α, β)
-        for (i, v) in enumerate(α)
-            N = inrange(gc.tree, points(gc, v), gc.radius)
-            D = diststocycle(gc, N, cycle)
-            m, j = findmin(vec(maximum(D, dims = 2)))
-            β[i] = N[j]
-        end
-        unique!(β)
-        nit += 1
-        if length(β) ≤ 2
-            return nothing, nit, m
-        end
+# TODO: optimize
+function singlecontract!(α, gc::GeodesicComplex{T}, cycle) where {T}
+    changed = false
+    ε = zero(T)
+    for (i, v) in enumerate(α)
+        N = inrange(gc.tree, points(gc, v), gc.radius)
+        D = diststocycle(gc, N, cycle)
+        ε, j = findmin(vec(maximum(D, dims = 2)))
+        changed |= α[i] ≠ N[j]
+        α[i] = N[j]
     end
-    β, nit, m
+    unique!(α)
+    changed, ε
 end
 
-_pairwise(gc::GeodesicComplex{T, D}, is, js) where {T, D} =
-    pairwise(gc.metric,
-             reshape(reinterpret(T, points(gc, is)), (D, length(is))),
-             reshape(reinterpret(T, points(gc, js)), (D, length(js))))
+function singlecontract_noalloc!(α, gc::GeodesicComplex{T}, cycle) where {T}
+    changed = false
+    ε = zero(T)
+    for (i, u) in enumerate(α)
+        N = inrange(gc.tree, points(gc, u), gc.radius)
+        # Spaghetti mapreduce avoids allocating distance matrices.
+        ε, j = mapreduce(min, enumerate(N)) do (i, v)
+            (maximum(evaluate(gc.metric, points(gc, v), landmarks(gc, w))
+                     for w in cycle), i)
+        end
+        changed |= α[i] ≠ N[j]
+        α[i] = N[j]
+    end
+    unique!(α)
+    changed, ε
+end
+
+function contract(gc::GeodesicComplex{T}, cycle) where {T}
+    α = gc.landmarks[cycle]
+    ε = zero(T)
+    changed = true
+
+    while changed
+        changed, ε = singlecontract!(α, gc, cycle)
+    end
+    length(α) ≥ 3 ? α : nothing, ε
+end
 
 diststocycle(gc::GeodesicComplex{T, D}, is, cycle) where {T, D} =
     pairwise(gc.metric,
              reshape(reinterpret(T, points(gc, is)), (D, length(is))),
              reshape(reinterpret(T, landmarks(gc, cycle)), (D, length(cycle))))
 
-function centroid(gc, cycle)
-    r = gc.radius
-    tree = gc.tree
-    metric = gc.metric
-
-    N = collect(mapreduce(i -> gc.cover[i], union, cycle))
-    D = diststocycle(gc, N, cycle)
-    d, i = findmin(vec(maximum(D, dims = 2)))
-    p = N[i]
-    d′ = typemax(d)
-    while d′ > d
-        d′ = d
-        N = inrange(tree, points(gc, p), r)
-        D = diststocycle(gc, N, cycle)
-        d, i = findmin(vec(maximum(D, dims = 2)))
-        p = N[i]
-    end
-    d, p
+#=
+struct Cycle
 end
 
-tomatrix(arr::AbstractArray{SVector{N, T}}) where {N, T} =
-    reshape(reinterpret(T, arr), (N, length(arr)))
-
-#=
-formatresults(g::AbstractGraph, cycle) = cycle
-
-function formatresults(gc::GeodesicComplex, cycle)
-    # Tole je narobe, ampak ideja je:
-    # najdeš točko, ki je najbližje točkam iz cikla
-    # najdaljša razdalja do nje je radij smrti
-    # POZOR: točka smrti ni nujno v okolici cikla!
-    surrounding = mapreduce(i -> gc.cover[i], union, cycle)
-    all_pts = tomatrix(points(gc)[collect(surrounding)])
-    lnd_pts = tomatrix(landmark_points(gc)[cycle])
-    dists = pairwise(gc.metric, all_pts, lnd_pts)
-    maxs = findmin(maximum(dists, dims = 1))
-    death, ideath = findmin()
-
-    if death < gc.radius #*2#?
-        nothing
-    else
-        cycle, death
-    end
+struct IntrinsicPersistenceResults{G<:GeodesicComplex}
+    complex ::G
+    generators ::Vector{...}
+    contracted ::Vector{...}
 end
 =#
-
-function cleanup(gc::GeodesicComplex, st::PersistenceState{T};
-                 removetriangles = false) where {T}
-    generators = Vector{Int}[]
-    diameters = T[]
-    for g in st.generators
-        if !removetriangles || length(g) > 3
-            if isempty(mapreduce(i -> gc.cover[i], intersect, g))
-                push!(generators, g)
-            end
-        end
-    end
-    generators
-end
