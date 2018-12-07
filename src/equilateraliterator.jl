@@ -1,19 +1,22 @@
 module EquilateralIterators
-export equilaterals, getsortededges
+export equilaterals, getsortededges, EquilateralIterator
 
 """
 it iterates equilateral triangles!
 """
-struct EquilateralIterator{T, M<:AbstractMatrix{T}}
-    dists       ::M
+struct EquilateralIterator{T}
+    dists       ::Matrix{T}
     sortededges ::Vector{Tuple{Int, Int}}
     tol         ::T
 end
 
+Base.show(io::IO, ::EquilateralIterator{T}) where {T} =
+    print(io, "EquilateralIterator{$T}(...)")
+
 Base.IteratorSize(::EquilateralIterator) = Base.SizeUnknown()
 Base.IteratorEltype(::EquilateralIterator) = Base.HasEltype()
-Base.eltype(::EquilateralIterator) = Tuple{Int, Int, Int}
-Base.eltype(::Type{EquilateralIterator}) = Tuple{Int, Int, Int}
+Base.eltype(::EquilateralIterator{T}) where {T} = Tuple{Tuple{Int, Int, Int}, T}
+Base.eltype(::Type{EquilateralIterator{T}}) where {T} = Tuple{Tuple{Int, Int, Int}, T}
 
 """
     equilaterals(dists, tol)
@@ -21,8 +24,8 @@ Base.eltype(::Type{EquilateralIterator}) = Tuple{Int, Int, Int}
 Iterator that returns approximately (up to `tol`) equilateral triangles in
 distance matrix `dists`, sorted by longest side length.
 """
-equilaterals(dists::AbstractMatrix{T}, tol) where T =
-    EquilateralIterator{T, typeof(dists)}(dists, getsortededges(dists), T(tol))
+equilaterals(dists::AbstractMatrix{T}, tol) where {T} =
+    EquilateralIterator{T}(dists, getsortededges(dists), T(tol))
 
 """
     getsortededges(dists)
@@ -35,15 +38,15 @@ getsortededges(dists) =
 
 function Base.iterate(ei::EquilateralIterator, st = (1, 1))
     dists = ei.dists
+    n = size(dists, 1)
     sortededges = ei.sortededges
     tol = ei.tol
 
     eindex, kstart = st
-    if kstart > size(dists, 1)
+    if kstart > n
         kstart = 1
         eindex += 1
     end
-    n = size(dists, 1)
 
     @inbounds while eindex ≤ length(sortededges)
         i, j = sortededges[eindex]
@@ -53,18 +56,18 @@ function Base.iterate(ei::EquilateralIterator, st = (1, 1))
             (k == i || k == j) && continue
             b = dists[k, i]
             c = dists[k, j]
-            # avoid problems when points are not in general position.
+            # This makes sure each triangle is returned only once when some of
+            # the sides have the same length.
             a > b || k > i || continue
             a > c || k > j || continue
 
             if 0 ≤ a - b ≤ tol && 0 ≤ a - c ≤ tol && abs(b - c) ≤ tol
-                return (i, j, k), (eindex, k + 1)
+                return ((i, j, k), a), (eindex, k + 1)
             end
         end
         kstart = 1
         eindex += 1
     end
-
     nothing
 end
 
