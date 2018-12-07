@@ -28,9 +28,9 @@ end
 # presečišča, ne glede na gostoto točk. Je 2r vedno dovolj?
 function GeodesicComplex(pts::AbstractVector{SVector{D, T}}, r;
                          metric = Euclidean(), tree = KDTree,
-                         witness = true, density = 1) where {D, T}
+                         witness = true) where {D, T}
     kdt = tree(pts, metric)
-    landmarks, cover = getcover(pts, r, density, kdt)
+    landmarks, cover = getcover(pts, r, kdt)
     n = length(landmarks)
 
     I = Int[]
@@ -50,7 +50,7 @@ function GeodesicComplex(pts::AbstractVector{SVector{D, T}}, r;
     GeodesicComplex(pts, landmarks, graph, kdt, cover, T(r), metric, witness)
 end
 
-function getcover(P, r, density = 1, kdt = KDTree(P))
+function getcover(P, r, kdt = KDTree(P))
     covered = falses(length(P))
     idxs = shuffle(eachindex(P))
     landmarks = Int[]
@@ -60,11 +60,10 @@ function getcover(P, r, density = 1, kdt = KDTree(P))
         covered[i] && continue
         covered[i] = true
         # names!
-        inset = inrange(kdt, P[i], r)
-        inball = density ≠ 1 ? inrange(kdt, P[i], r/density) : inset
+        inball = inrange(kdt, P[i], r)
         covered[inball] .= true
         push!(landmarks, i)
-        push!(cover, Set(inset))
+        push!(cover, Set(inball))
     end
     landmarks, cover
 end
