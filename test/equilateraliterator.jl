@@ -27,14 +27,17 @@ import Playground.EquilateralIterators.getsortededges
             triangles = collect(equilaterals(dists, r))
 
             @test allunique(triangles)
-            @test issorted(triangles, lt = Δlt)
+            # triangles by side length
+            @test issorted(getindex.(triangles, 1), lt = Δlt)
+            # triangles by r
+            @test issorted(getindex.(triangles, 2))
 
             function isequilateral(t1)
                 a, b, c = (dists[i, j] for (i, j) in IterTools.subsets(t1, 2))
                 abs(a - b) ≤ r && abs(b - c) ≤ r && abs(a - c) ≤ r
             end
 
-            @test all(isequilateral, triangles)
+            @test all(isequilateral, getindex.(triangles, 1))
         end
     end
 
